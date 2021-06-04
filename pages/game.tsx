@@ -1,7 +1,6 @@
 import {WORDS} from "../data/data"
 
 const wordFor = WORDS[0];
-
 export default function Game() {
 
 
