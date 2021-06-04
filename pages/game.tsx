@@ -19,8 +19,9 @@ export default function Game() {
   }
 
 
-  const shuffleArray = (arr, number) => {
-    let array = arr.slice(0, number); //обрезает массив до нужного значения
+  const shuffleArray = (arr, countWords, countLetterInWord) => {
+    let filteredArray = arr.filter(item => item.length === countLetterInWord); //обрезаем оригинальный массив по нужному кол-ву символов в слове
+    let array = filteredArray.slice(0, countWords); //обрезает массив до нужного значения слов за игру
 
     let j, temp; //шафл массива
     for (let i = array.length - 1; i > 0; i--) {
@@ -30,12 +31,11 @@ export default function Game() {
       array[i] = temp;
     }
 
-    let newArray = array.map((elem, index) => ( //мапим к норм виду
-      <div key={index}>{elem}</div>
+    let newArray = array.map((elem, index) => ( //мапим к нормальному виду
+      <div key={index}>{wordSeparate(elem)}</div>
     ))
-
     return newArray;
   }
 
-  return <>{shuffleArray(WORDS, 10)}</>
+  return <>{shuffleArray(WORDS, 10, 4)}</>
 }
