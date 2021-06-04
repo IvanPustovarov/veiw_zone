@@ -1,3 +1,24 @@
+import {WORDS} from "../data/data"
+
+const wordFor = WORDS[0];
+
 export default function Game() {
-    return <h1>My game</h1>
+
+
+  const wordSeparate = (word) => {
+    let random = mathRandom(word.length);
+    if(random == 0) random=+1;
+    const part1 = word.slice(0, random);
+    const part2 = word.slice(random);
+
+    return `${part1} ~ ${part2}`
+
+  }
+
+  const mathRandom = (first) => {
+    return Math.floor(Math.random() * first)
+  }
+
+
+    return <h1>{wordSeparate(wordFor)}</h1>
   }

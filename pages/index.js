@@ -22,16 +22,20 @@ export default function Home() {
 
         <div className={styles.grid}>
         <span className={styles.card}>
-            <h2>Сколько слов</h2>
+            <h2>Сколько слов за игру</h2>
             <input type="range" />
           </span>
 
           <span className={styles.card}>
             <h2>Сколько букв в словах</h2>
+            <input type="range" />
           </span>
 
           <span className={styles.card}>
             <h2>Скорость</h2>
+            <input type="text" />
+            <button>+</button>
+            <button>-</button>
           </span>
 
           <Link href="/game">
