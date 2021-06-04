@@ -14,14 +14,7 @@ export default function Home() {
   }
 
   const handleSpeedChange = (oper) => {
-    let speed = 1;
-    if(oper === "+") {
-      speed =+ 0.5;
-    }
-    if(oper === "-") {
-      speed =- 0.5;
-    }
-   return oper;
+
   }
   return (
     <div className={styles.container}>
@@ -40,26 +33,26 @@ export default function Home() {
         </p>
 
         <div className={styles.grid}>
-        <span className={styles.card}>
+          <span className={styles.card}>
             <h2>Сколько слов за игру</h2>
-            <input type="range" min="10" max="67" defaultValue="20" name="words"/>
-        </span>
+            <input type="range" min="10" max="67" defaultValue="20" name="words" />
+          </span>
 
           <span className={styles.card}>
             <h2>Сколько букв в словах</h2>
-            <input type="range" min="3" max="16" defaultValue="4" name="word_count"/>
+            <input type="range" min="3" max="16" defaultValue="4" name="word_count" />
           </span>
 
           <span className={styles.card}>
             <h2>Скорость</h2>
-            <input type="text" readOnly defaultValue="1"/>
-            <button onClick={handleSpeedChange("+")}>+</button>
-            <button onClick={handleSpeedChange("-")}>-</button>
+            <input type="text" readOnly defaultValue="1" />
+            <button>+</button>
+            <button>-</button>
           </span>
 
           <Link href="/game">
             <button onClick={handleGameClick}>
-                Старт
+              Старт
             </button>
           </Link>
         </div>
