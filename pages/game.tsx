@@ -15,8 +15,8 @@ export default function Game() {
 
   }
 
-  const mathRandom = (first) => {
-    return Math.floor(Math.random() * first)
+  const mathRandom = (word) => {
+    return Math.floor(Math.random() * word)
   }
 
 

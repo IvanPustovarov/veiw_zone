@@ -4,6 +4,13 @@ import styles from '../styles/Home.module.css'
 import Link from 'next/link'
 
 export default function Home() {
+  const handleClick = () => {
+    return {
+      wordCount: 10,
+      letterCount: 4, 
+      speedCount: 1.3
+    }
+  }
   return (
     <div className={styles.container}>
       <Head>
@@ -39,7 +46,7 @@ export default function Home() {
           </span>
 
           <Link href="/game">
-            <button>
+            <button onClick={handleClick}>
                 Старт
             </button>
           </Link>
