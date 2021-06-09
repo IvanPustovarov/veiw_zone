@@ -18,51 +18,61 @@ export default function Game() {
     return Math.floor(Math.random() * word)
   }
 
+  const letterCount = (array, count) => {
+    return array.filter(item => item.length === count);
+  }
 
-  const shuffleArray = (arr, countWords, countLetterInWord) => {
+  const countWordsOfGame = (array, count) => {
+    if (count > array.length) {
+      throw new Error("Кол-во слов больше доступного");
+    }
+    return array.slice(0, count);
+  }
 
-    let filteredArray = arr.filter(item => item.length === countLetterInWord); //обрезаем оригинальный массив по нужному кол-ву символов в слове
-    let array = filteredArray.slice(0, countWords); //обрезает массив до нужного значения слов за игру
-
-    let j, temp; //шафл массива
+  const shuffle = (array) => {
+    let j, temp;
     for (let i = array.length - 1; i > 0; i--) {
       j = Math.floor(Math.random() * (i + 1));
       temp = array[j];
       array[j] = array[i];
       array[i] = temp;
     }
-
-    let newArray = array.map((elem, index) => ( //мапим к нормальному виду
-      <div key={index}>{wordSeparate(elem)}</div>
-    ))
-
-    //return partOfArray(newArray, 1000);
-
-    return newArray;
+    return array;
   }
 
-  // const partOfArray = (array, timeout) => {
-  //   let start = 0;
-  //   let end = start + 3;
+  const normalizeArray = (array) => {
+    return array.map((elem, index) => (
+      <div key={index}>{wordSeparate(elem)}</div>
+    ))
+  }
 
-  //   let sliceArray = array.slice(start, end);
-
-  // }
-
-  // const countDown = () => {
-  //   let index = 3;
-  //   let timerId = setInterval(() => {
-
-  //     index -= 1;
-  //     if (index === 0) {
-  //       clearInterval(timerId);
-  //     }
-  //   }, 1000);
-
-
-  // }
-
+  const countDown = (array, interval) => {
+    let start = 0;
+    let end = start + 3;
+    let count = 10;
+    let timerId = setInterval(() => {
+      console.log("ok");
+      count -= 1;
+      // if (end === array.length) {
+      //   clearInterval(timerId);
+      // }
+      if (count === 0) {
+        clearInterval(timerId)
+      }
+    }, interval);
+  }
 
 
-  return <>{shuffleArray(WORDS, 10, 4)}</>
+  const arrayManipulation = (arr, countWords, countLetterInWord) => {
+
+    let countLetterInWordArray = letterCount(arr, countLetterInWord); //обрезаем оригинальный массив по нужному кол-ву символов в слове
+    let countWordsOfGameArray = countWordsOfGame(countLetterInWordArray, countWords); //обрезает массив до нужного значения слов за игру
+    let shuffleArray = shuffle(countWordsOfGameArray); //перемешивает массив
+    let finalArray = normalizeArray(shuffleArray); //форматируем массив
+
+    return finalArray;
+  }
+
+  countDown(WORDS, 1000);
+  return <>{arrayManipulation(WORDS, 10, 4)}</>
 }
