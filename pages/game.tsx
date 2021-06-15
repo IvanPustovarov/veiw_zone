@@ -1,6 +1,6 @@
 import { WORDS } from "../data/data"
 
-const wordFor = WORDS[0];
+const wordFor = ["человек", "год", "время", "дело", "жизнь", "день", "рука"];
 export default function Game() {
 
 
@@ -48,17 +48,17 @@ export default function Game() {
 
   const countDown = (array, interval) => {
     let start = 0;
-    let end = start + 3;
-    let count = 10;
+    let end = 3;
     let timerId = setInterval(() => {
-      console.log("ok");
-      count -= 1;
-      // if (end === array.length) {
-      //   clearInterval(timerId);
-      // }
-      if (count === 0) {
-        clearInterval(timerId)
+      array.slice(start, end);
+      start += 3;
+      end = start + 3;
+      console.log(`start: ${start}. end: ${end}`)
+      if (end >= array.length) {
+        console.log("終わりだな")
+        clearInterval(timerId);
       }
+
     }, interval);
   }
 
@@ -73,6 +73,6 @@ export default function Game() {
     return finalArray;
   }
 
-  countDown(WORDS, 1000);
+  countDown(wordFor, 1500);
   return <>{arrayManipulation(WORDS, 10, 4)}</>
 }
