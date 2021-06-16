@@ -1,8 +1,9 @@
+import {useState} from "react";
 import { WORDS } from "../data/data"
 
-const wordFor = ["человек", "год", "время", "дело", "жизнь", "день", "рука"];
-export default function Game() {
 
+export default function Game() {
+  const [originArray, setOriginArray] = useState([])
 
   const wordSeparate = (word) => {
     let random = mathRandom(word.length);
@@ -47,32 +48,40 @@ export default function Game() {
   }
 
   const countDown = (array, interval) => {
+    let remainder = array.length % 3;
+    let countIteration = (array.length - remainder) / 3;
+
     let start = 0;
     let end = 3;
     let timerId = setInterval(() => {
-      array.slice(start, end);
+      let displayArray = array.slice(start, end);
       start += 3;
       end = start + 3;
-      console.log(`start: ${start}. end: ${end}`)
-      if (end >= array.length) {
-        console.log("終わりだな")
+      countIteration -= 1;
+      if (countIteration === 0) {
+        end = start + remainder;
+        console.log(displayArray)
+        console.log("thats all")
         clearInterval(timerId);
+      }
+      else {
+        console.log(displayArray);
       }
 
     }, interval);
   }
 
 
-  const arrayManipulation = (arr, countWords, countLetterInWord) => {
+  const arrayManipulation = (arr, countWords, countLetterInWord, interval) => {
 
     let countLetterInWordArray = letterCount(arr, countLetterInWord); //обрезаем оригинальный массив по нужному кол-ву символов в слове
     let countWordsOfGameArray = countWordsOfGame(countLetterInWordArray, countWords); //обрезает массив до нужного значения слов за игру
     let shuffleArray = shuffle(countWordsOfGameArray); //перемешивает массив
-    let finalArray = normalizeArray(shuffleArray); //форматируем массив
+    let finalArray = countDown(shuffleArray, interval); //форматируем массив
 
     return finalArray;
   }
 
-  countDown(wordFor, 1500);
-  return <>{arrayManipulation(WORDS, 10, 4)}</>
+  //countDown(wordFor, 1500);
+  return <>{arrayManipulation(WORDS, 10, 4, 1500)}</>
 }
